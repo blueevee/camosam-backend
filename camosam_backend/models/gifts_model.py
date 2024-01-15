@@ -1,6 +1,6 @@
-from peewee import Model, CharField, FloatField, BooleanField
+from peewee import Model, CharField, FloatField, BooleanField, TextField
 
-from .config import database
+from camosam_backend.models.config import database
 
 
 class BaseModel(Model):
@@ -8,13 +8,13 @@ class BaseModel(Model):
         database = database
 
 
-class Gifts(BaseModel):
+class Gift(BaseModel):
     name = CharField()
-    image_url = CharField()
+    image_url = TextField()
     price = FloatField()
     is_active = BooleanField()
 
 
 # database.connect()
-# database.create_tables([Gifts])
+# database.create_tables([Gift])
 # database.close()
