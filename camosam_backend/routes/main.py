@@ -11,6 +11,7 @@ from camosam_backend.controllers.gift_list_controller import (
     gifts_list,
     restore_gift,
     delete_gift_instance,
+    generate_gift_charge,
 )
 from camosam_backend.controllers.guest_list_controller import (
     add_guest,
@@ -58,3 +59,7 @@ def update_guest(guest_id: int, guest: UpdatedGuest) -> dict:
 @app.delete('/guest/{guest_id}')
 def delete_guest(guest_id: int) -> dict:
     return delete_guest_instance(guest_id)
+
+@app.get('/gift_charge/{price}')
+def store_guest(price: str) -> dict:
+    return generate_gift_charge(price)

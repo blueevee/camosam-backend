@@ -5,6 +5,8 @@ from ..services.gift_list_service import (
     delete_gift
 )
 
+from ..services.efi_pix_service import create_charge
+
 
 def add_gift(gift: dict) -> dict:
     try:
@@ -42,7 +44,16 @@ def delete_gift_instance(gift_id: int) -> dict:
     try:
         _, error = delete_gift(gift_id)
         if error:
-            return {'error': str(error)}
+            return {'[DELETE CONTROLLER ERROR]': str(error)}
         return {'message': f'Record deleted'}
-    except Exception as e:
-        return {'error': f'Invalid data: {e}'}
+    except Exception as error:
+        return {'[DELETE CONTROLLER ERROR]': f'Invalid data: {error}'}
+
+def generate_gift_charge(gift_price: str) -> dict:
+    try:
+        payment_image, error = create_charge(gift_price)
+        if error:
+            return {'[CHARGE CONTROLLER ERROR]': str(error)}
+        return {'qr_code': payment_image}
+    except Exception as error:
+        return {'[CHARGE CONTROLLER ERROR]': f'Invalid data: {error}'}
